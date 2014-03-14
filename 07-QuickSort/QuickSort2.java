@@ -21,7 +21,7 @@ public class QuickSort2 {
 	return wall;
     }
     public static int[] QuickSort( int[] A, int low, int high ) {
-	if ( A.length > 1 && high > low ) {
+	if ( high > low ) {
 	    Random rng = new Random();
 	    int p = low + rng.nextInt(high - low);
 	    p = partition(A,low,high,p);
