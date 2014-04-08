@@ -18,7 +18,6 @@ public class Calculator {
 		if (!isOperation(input)) 
 		    System.out.println("Invalid input");
 		else {
-		    boolean r = false;
 		    double ret = 0;
 		    double a = Double.parseDouble(stack.pop());
 		    double b;
