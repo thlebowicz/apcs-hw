@@ -2,13 +2,12 @@ import java.util.Arrays;
 public class MyStack {
 
     private String[] arr; 
-    private int numElts;
     private int top;
+    //Removed numElts after talking to Dionis
 
     public MyStack(){
 	arr = new String[10];
 	top = -1;
-	numElts = 0;
     }
 
     public  void push(String s){
@@ -16,14 +15,13 @@ public class MyStack {
 	    arr = Arrays.copyOf(arr,2*arr.length);
 	top++;
 	arr[top] = s;
-	numElts++;
     }
     
     public String pop() {
 	String s = arr[top];
-	arr[top] = null;
+	/* arr[top] = null;
+	   Removed after class discussion */
 	top--;
-	numElts--;
 	return s;
     }
 
@@ -36,7 +34,7 @@ public class MyStack {
     }
 
     public int getSize() {
-	return numElts;
+	return top+1;
     }
     
     public String toString(){

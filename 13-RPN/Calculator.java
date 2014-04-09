@@ -15,7 +15,14 @@ public class Calculator {
 		stack.push(""+in);
 	    }
 	    catch ( Exception ex ) { 
-		if (!isOperation(input)) 
+		//Added a way to clear the stack
+		if ( input.equals("clear")) {
+		    String pop;
+		    while (!stack.isEmpty()) 
+			pop = stack.pop();
+		    System.out.println("Stack cleared");
+		}
+		else if (!isOperation(input) || stack.isEmpty()) 
 		    System.out.println("Invalid input");
 		else {
 		    double ret = 0;
@@ -34,7 +41,10 @@ public class Calculator {
 			ret = b-a;		   
 		    }   		
 		    else if ( input.equals("*") ) {
-			ret = a*b;		  
+			if (b!=0)
+			    ret = a*b;
+			else
+			    ret = a;
 		    }
 		    else if ( input.equals("/") ) {
 			if (b!=0) 
