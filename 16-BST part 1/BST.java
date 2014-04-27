@@ -1,23 +1,16 @@
 public class BST {
-    private node root;
+    private Node root;
     
-    public Node search(int x) {
-	Node p = root;
-	while ( p!=null && p.getData()!=x ) {
-	    if ( p.getData() > x ) 
-		p = p.getLeft();
-	    else 
-		p = p.getRight();
-	}
-	return p;
-    }
+    public BST() {
+	root = null;
+    }   
     public void insert( int i ) {
 	Node n = new Node(i);
 	Node tmp = root;
 	while ( true ) {
-	    if ( n.getData() == tmp.getData() ) 
+	    if ( i == tmp.getData() ) 
 		break;
-	    else if ( n.getData() < tmp.getData() ) {
+	    else if ( i < tmp.getData() ) {
 		if ( !tmp.hasLeft() ) {
 		    tmp.setLeft(n);
 		    break;
@@ -35,3 +28,24 @@ public class BST {
 	    }
 	}
     }
+    public Node search(int x) {
+	Node p = root;
+	while ( p!=null && p.getData()!=x ) {
+	    if ( p.getData() > x ) 
+		p = p.getLeft();
+	    else 
+		p = p.getRight();
+	}
+	return p;
+    }
+    public Node search2(Node c, int x) {
+	if (c.getData() == x)  
+	    return c; 
+	else if (x < c.getData() && c.hasLeft())  
+	    return search2(c.getLeft(),x);
+	else if (x > c.getData() && c.hasRight())
+	    return search2(c.getRight(),x);
+	else
+	    return null;
+    }
+}

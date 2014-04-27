@@ -1,0 +1,145 @@
+/*
+1.D
+2.B
+3.A
+4.E
+5.E
+6.B
+7.B
+8.A
+9.A
+10.B
+11.A
+12.C
+13.B
+14.C
+15.C
+16.A
+17.E
+18.A
+19.D
+20.A
+21.B
+22.B
+23.B
+24.A
+25.C
+26.D
+27.B
+28.A
+29.A
+30.A
+31.B
+32.E
+33.D
+34.C
+35.E
+36.B
+37.A
+38.E
+39.C
+40.B
+*/
+//1
+public void reset() {
+    if ( arm.isFacingRight() ) {
+	arm.changeDirection();
+    }
+    int n = arm.getCurrentIndex();
+    arm.moveForward(n);
+    arm.changeDirection();
+}
+public int mostAcidic() { 
+    int ph = 7;
+    int index = -1;
+    for ( int n = 0; n < solutions.size(); n++ ) {
+	if ( solutions.get(n).getPH() < ph ) { 
+	    ph = solutions.get(n).getPH();
+	    index = n;
+	}
+    }
+    if ( index != -1 ) {
+	reset();
+	arm.moveForward(index);
+    }
+    return index;
+}
+
+//2
+public int countA(WordSet s) { 
+    int ctr = 0;
+    for (int n = 1; n <= s.size(); n++ ) {
+	if (s.findkth(n).substring(0,1).equals("A")) 
+	    ctr++;
+    }
+    return ctr;
+}
+public void removeA(WordSet s) {
+    ArrayList<String> a = new ArrayList<String>();
+    for (int n = 1; n <= s.size(); n++ ) {
+	if (s.findkth(n).substring(0,1).equals("A"))
+	    a.add(s.findkth(n));
+    }
+    for ( String word : a ) 
+	s.remove(word);
+}
+public WordSet commonElements(WordSet s1, WordSet s2) {
+    WordSet ret = new WordSet();
+    for ( int n = 1; n <= s1.size(); n++ ) {
+	if (s2.contains(s1.findkth(n))) 
+	    ret.insert(s1.findkth(n));
+    }
+    return ret;
+}
+//3 
+public Player requestSlot(String playerName) {
+    int open = -1;
+    for (int n = 0; n < 100; n++ ) {
+	if (slots[n] == null) {
+	    open = n;
+	}
+    }
+    if (open != -1 ) {
+	Player p = new Player(playerName,open);
+	slots[open] = p;
+	return p;
+    }
+    else {
+	waitingList.add(playerName);
+	return null;
+    }
+}
+public Player cancelAndReassignSlot(Player p) {
+    int num = p.getPlayerNumber();
+    if ( waitingList.size() == 0 ) {
+	slots[num] = null;
+    }
+    else {
+	slots[num] = new Player(waitingList.get(0),num);
+	waitingList.remove(0);
+    }
+    return slots[num];
+}
+//4
+private ArrayList<Bug> getBugs(ArrayList<Actor> actors) {
+    ArrayList<Bugs> bugs = new ArrayList<Bugs>;
+    for (int n = 0; n < actors.size(); n++ ) {
+	if ( actors.get(n) instanceof Bug ) {
+	    bugs.add(actors.get(n));
+	}
+    }
+    return bugs;
+}
+private void eatBug(ArrayList<Bug> bugs) {
+    int n = (int)(Math.random()*bugs.size());
+    bugs.get(n).removeSelfFromGrid();
+}
+public void processActors(ArrayList<Actor> actors) {
+    ArrayList<Bug> bugs = getBugs(actors);
+    if (bugs.size() != 0) 
+	eatBug(bugs);
+    else 
+	super.processActors(actors);
+}
+    
+	

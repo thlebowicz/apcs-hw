@@ -1,0 +1,129 @@
+/*
+1.C
+2.A
+3.B
+4.C
+5.C
+6.E
+7.D
+8.C
+9.B
+10.D
+11.B
+12.C
+13.B
+14.E
+15.A
+16.D
+17.C
+18.B
+19.B
+20.E
+21.D
+22.D
+23.E
+24.E
+25.D
+26.A
+27.D
+28.E
+29.E
+30.D
+31.C
+32.C
+33.E
+34.B
+35.E
+36.C
+37.D
+38.A
+39.D
+40.C
+*/
+//1
+private String recombine(String word1, String word2) {
+    return word1.substring(0,word1.length()/2) + word2.substring(word2.length()/2);
+}
+private String[] mixedWords(String[] words) {
+    String[] ret = new String[words.length];
+    for ( int n = 0; n < words.length; n++ ) {
+	if (n%2 == 0) 
+	    ret[n] = recombine(words[n],words[n+1]);
+	else
+	    ret[n] = recombine(words[n],words[n-1]);
+    }
+    return ret;
+}
+//2
+public static int getPeakIndex(int[] array) {
+    int index = -1;
+    for ( int n = 1; n < array.length-1; n++ ) {
+	if ( array[n]>array[n-1] && array[n]>array[n+1] ) {
+	    index = n;
+	    break;
+	}
+    }
+    return index;
+}
+public static boolean isMountain(int[] array) {
+    int p = getPeakIndex(array);
+    if ( p == -1 ) { return false; }
+    for ( int n = 0; n < p; n++ ) {
+	if (array[n] > array[n+1]) 
+	    return false;
+    }
+    for ( int n = p+1; n < array.length; n++ ) {
+	if (array[n] > array[n-1]) 
+	    return false;
+    }
+    return true;
+
+}
+//3
+public int getRandomDirection() {
+    return 45*(int)(Math.random()*8);
+}
+public ArrayList<Location> getMoveLocations() {
+    ArayList<Location> moveLocs = new ArrayList<Location>();
+    int dir = getRandomDirection();
+    Location tmp = getLocation();
+    for ( int n = 1; n <= maxDistance; n++ ) {
+	tmp = tmp.getAdjacentLocation(dir);
+	moveLocs.add(tmp);
+    }
+    return moveLocs;
+}
+public Location selectMoveLocation(ArrayList<Location> locs) {
+    if ( locs.size() == 0 ) { return getLocation(); }
+    Location tmp = locs.get((int)(Math.random() * locs.size()));
+    Grid<Actor> gr = getGrid(); 
+    if ( gr.get(tmp) instanceof Flower || gr.get(tmp) == null ) 
+	return tmp;
+    else 
+	return null;
+}
+//4
+public boolean record(int score) {
+    int index = 0;
+    boolean set = false;
+    for ( int n = 0; n < scoreList.size(); n++ ) {
+	if (scoreList.get(n).getScore() == score){
+	    scoreList.get(n).increment();
+	    return false;
+	}
+	else if (scoreList.get(n).getScore() > score && !set) {
+	    set = true;
+	    index = n;
+	}
+    }
+    ScoreInfo newScore = new ScoreInfo(score);
+    scoreList.add(index,newScore);
+    return true;
+}
+public void recordScores(int[] stuScores) {
+    for ( int score : stuScores ) 
+	record(score); 
+}
+
+    
+	    
