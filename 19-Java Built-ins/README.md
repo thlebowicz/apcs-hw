@@ -1,0 +1,1 @@
+Had trouble retrieving my homework from homer because of connectivity issues, but I'll make sure to push it tomorrow. 
